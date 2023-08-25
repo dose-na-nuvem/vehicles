@@ -12,7 +12,7 @@ var rootCmd = &cobra.Command{
 
 	Short: "Controle de veículos e tags",
 
-	Long: `Permite gerencias os veículos e as tags de customers:
+	Long: `Permite gerenciar os veículos e as tags de customers:
 Será possível adicionar carros com multiplas tags e relacionar os carros com os donos atuais.`,
 }
 
