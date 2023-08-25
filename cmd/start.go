@@ -10,7 +10,7 @@ import (
 var startCmd = &cobra.Command{
 	Use:   "start",
 	Short: "Inicia o microserviço",
-	Long: `Permite gerencias os veículos e as tags de customers:
+	Long: `Permite gerenciar os veículos e as tags de customers:
 
 Será possível adicionar carros com multiplas tags e relacionar os carros com clientes.`,
 	Run: func(cmd *cobra.Command, args []string) {
