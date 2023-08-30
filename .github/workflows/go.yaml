@@ -32,9 +32,6 @@ jobs:
     - name: Install tools
       run: make install-tools
 
-    - name: Generate proto code
-      run: make protoc
-
     - name: Lint
       run: make lint
 
