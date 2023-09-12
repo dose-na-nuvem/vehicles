@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "github.com/dose-na-nuvem/vehicles/protogen/vehicle";
+
+package vehicle;
+
+service Vehicle {
+	rpc Create (CreateRequest) returns (Empty) {}
+}
+
+message CreateRequest {
+	string model = 1;
+	string make = 2;
+	string color = 3;
+	int32 year = 4;
+	string customerId = 5;
+}
+
+message Empty {}
