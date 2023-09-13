@@ -4,7 +4,6 @@ import "go.uber.org/zap"
 
 type Cfg struct {
 	Database Database       `mapstructure:"db"`
-	Server   ServerSettings `mapstructure:"server"`
 
 	Logger *zap.Logger
 }
