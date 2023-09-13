@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/dose-na-nuvem/customers/config"
+	"github.com/dose-na-nuvem/vehicles/config"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 )
