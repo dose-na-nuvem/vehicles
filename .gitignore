@@ -1,2 +1,5 @@
 local
 _build
+
+# ignora gerados por proto
+*.pb.go
