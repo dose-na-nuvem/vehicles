@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"os"
-	"time"
 
 	"github.com/spf13/cobra"
 	"github.com/dose-na-nuvem/vehicles/config"
@@ -14,7 +13,6 @@ import (
 var (
 	configFile     string
 	cfg            = config.New()
-	defaultTimeout = 5 * time.Second
 )
 
 // rootCmd representa o comando base quando chamado sem nenhum subcomando.
@@ -30,6 +28,16 @@ Será possível adicionar carros com multiplas tags e relacionar os carros com o
 // Execute adiciona todos os comandos filhos ao comando raiz e configura as bandeiras apropriadamente.
 // Isso é chamado por main.main(). Isso só precisa acontecer uma vez para o rootCmd.
 func Execute() {
+	cobra.OnInitialize(initConfig)
+
+	rootCmd.PersistentFlags().StringVar(&configFile, "config", "config.yaml",
+		"Define o arquivo de configuração a utilizar.")
+	
+	// Associa o Viper as flags
+	if err := viper.BindPFlags(startCmd.Flags()); err != nil {
+		cfg.Logger.Error("falha ao ligar as flags", zap.Error(err))
+	}
+	
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
