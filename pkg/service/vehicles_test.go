@@ -18,9 +18,9 @@ func TestVehicle_StartSimple(t *testing.T) {
 	cfg := sampleConfig()
 	ctx := context.Background()
 	deadline, cancel := context.WithTimeout(ctx, time.Millisecond*100)
-	v := &Vehicle{
+			v := &Vehicle{
 		cfg: cfg,
-	}
+			}
 	// act
 	go func() {
 		err = v.Start(deadline)
