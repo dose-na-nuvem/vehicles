@@ -49,7 +49,7 @@ func (h *HTTP) Start(ctx context.Context) error {
 
 func (h *HTTP) Shutdown(ctx context.Context) error {
 	h.logger.Info(httpStopping)
-	// We received an interrupt signal, shut down.
+	// Recebe um sinal de interrupção, desligamos.
 	if err := h.srv.Shutdown(ctx); err != nil {
 		// Erro ao fechar ouvintes (listeners) ou tempo limite (timeout) de contexto.
 		return err
