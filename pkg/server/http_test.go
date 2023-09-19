@@ -10,7 +10,6 @@ import (
 	"github.com/dose-na-nuvem/vehicles/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	// "github.com/tj/assert"
 )
 
 func TestHTTP_BlockingStartSuccessfulAndShutdown(t *testing.T) {
