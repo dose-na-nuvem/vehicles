@@ -51,7 +51,7 @@ func (h *HTTP) Shutdown(ctx context.Context) error {
 	h.logger.Info(httpStopping)
 	// We received an interrupt signal, shut down.
 	if err := h.srv.Shutdown(ctx); err != nil {
-		// Error from closing listeners, or context timeout:
+		// Erro ao fechar ouvintes (listeners) ou tempo limite (timeout) de contexto.
 		return err
 	}
 
