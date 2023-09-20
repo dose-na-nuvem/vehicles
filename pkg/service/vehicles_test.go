@@ -3,41 +3,32 @@ package service
 import (
 	"context"
 	"testing"
+	"time"
 
 	"github.com/dose-na-nuvem/vehicles/config"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/zap"
 )
 
-func TestVehicle_Start(t *testing.T) {
-	type fields struct {
-		cfg *config.Cfg
-	}
-	type args struct {
-		ctx context.Context
-	}
-	tests := []struct {
-		name    string
-		fields  fields
-		args    args
-		wantErr bool
-	}{
-		{
-			"no-error",
-			fields{cfg: config.New()},
-			args{context.Background()},
-			false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+func TestVehicle_StartSimple(t *testing.T) {
+
+	var err error
+
+	// arrange
+	cfg := sampleConfig()
+	ctx := context.Background()
+	deadline, cancel := context.WithTimeout(ctx, time.Millisecond*100)
 			v := &Vehicle{
-				cfg: tt.fields.cfg,
+		cfg: cfg,
 			}
-			if err := v.Start(tt.args.ctx); (err != nil) != tt.wantErr {
-				t.Errorf("Vehicle.Start() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
+	// act
+	go func() {
+		err = v.Start(deadline)
+		cancel()
+	}()
+
+	// assert
+	assert.NoError(t, err, "o serviço devia iniciar sem problemas")
 }
 
 func TestVehicle_Stop(t *testing.T) {
@@ -74,6 +65,18 @@ func TestVehicle_Stop(t *testing.T) {
 func TestNewEmpty(t *testing.T) {
 	var v Vehicle
 	vehicle := New(&config.Cfg{})
-	assert.NotNil(t, vehicle, "even so, should be not empty")
+	assert.NotNil(t, vehicle, "não deve estar vazia")
 	assert.IsType(t, vehicle, &v, "deve ser um veículo")
+}
+
+func sampleConfig() *config.Cfg {
+	cfg := &config.Cfg{
+		Logger: zap.Must(zap.NewDevelopment()),
+		Server: config.ServerSettings{
+			HTTP: config.HTTPServerSettings{
+				Endpoint: "localhost:10000",
+			},
+		},
+	}
+	return cfg
 }
