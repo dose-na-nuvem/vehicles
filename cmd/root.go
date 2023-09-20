@@ -33,6 +33,16 @@ func Execute() {
 	rootCmd.PersistentFlags().StringVar(&configFile, "config", "config.yaml",
 		"Define o arquivo de configuração a utilizar.")
 	
+	startCmd.Flags().StringVar(&cfg.Server.TLS.CertFile, "server.tls.certfile", "", "caminho do certificado.")
+
+	startCmd.Flags().StringVar(&cfg.Server.TLS.CertKeyFile, "server.tls.certkeyfile", "",
+		"caminho da chave privada do certificado.")
+
+	startCmd.Flags().BoolVar(&cfg.Server.TLS.Insecure, "server.tls.insecure", false, "Força o modo inseguro.")
+
+	startCmd.Flags().StringVar(&cfg.Server.GRPC.Endpoint, "server.grpc.endpoint", "127.0.0.1:56533",
+		"Endereço gRPC onde o serviço vai servir requisições.")
+
 	// Associa o Viper as flags
 	if err := viper.BindPFlags(startCmd.Flags()); err != nil {
 		cfg.Logger.Error("falha ao ligar as flags", zap.Error(err))
