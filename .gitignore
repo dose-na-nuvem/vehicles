@@ -3,3 +3,6 @@ _build
 
 # ignora gerados por proto
 *.pb.go
+
+local/
+tmp/
