@@ -15,6 +15,11 @@ test:
 build:
 	@go build -o ./_build/vehicles .
 
+.PHONY: air
+air:
+	@if ! air -v &>/dev/null; then go install github.com/cosmtrek/air@v1.44.0; fi
+	@air
+
 .PHONY: install-tools
 install-tools:
 	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.53.2
